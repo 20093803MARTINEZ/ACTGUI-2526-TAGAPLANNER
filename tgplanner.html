@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List Popup</title>
+  <link rel="stylesheet" href="taskpopup-style.css">
+  <script src="taskpopup.js" defer></script>
+</head>
+<body>
+  <div class="popup-overlay">
+    <div class="popup-box"  >
+
+      <!-- Popup Header -->
+      <div class="popup-header">
+        <h2>TASK/S</h2>
+        <div class="header-icons">
+          <span class="close-btn">&times;</span>
+          <span class="plus-sign">+</span> <!-- NOW below the X -->
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <span class="tab active">TO - DO</span>
+        <span class="tab black-box">[BLACK]</span>
+      </div>
+
+      <!-- Task List -->
+      <div class="task-list">
+        <div class="task">
+          <strong>ATTEND PARENTS MEETING</strong>
+          <p>11:00 A.M – 12:00 P.M -- DEC 01, 2025</p>
+        </div>
+
+        <div class="task">
+          <strong>JOB INTERVIEW</strong>
+          <p>9:00 A.M ONWARDS -- DEC 10, 2025</p>
+        </div>
+      </div>
+
+      <!-- Footer with Undo and Buttons -->
+      <div class="popup-footer">
+        <span class="undo-btn">⟲</span>
+        <div class="action-buttons">
+          <button class="mark-complete">MARK COMPLETE</button>
+          <button class="delete">DELETE</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Add Task Modal -->
+  <div class="add-task-modal">
+    <div class="modal-content">
+      <h3>Add New Task</h3>
+      <input type="text" id="task-name" placeholder="Task Name" />
+      <input type="text" id="task-time" placeholder="Time/Date" />
+      <button id="save-task">Save Task</button>
+      <button id="close-task-modal">Close</button>
+    </div>
+  </div>
+
+</body>
+</html>
