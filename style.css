@@ -1,118 +1,769 @@
-body {
-  font-family: Helvetica, Arial, sans-serif;
-  background-color: #f0f0f0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  min-height: 100vh;
+/* ===================================================
+   GLOBAL SETTINGS & VARIABLES
+   =================================================== */
+:root {
+  --card-radius: 18px;
+  --blue-top: #60cac6;
+  --blue-bottom: #10c4be;
+  --dark-text: #1f2933;
+  --muted-text: #7b8794;
+  --border-color: #e4e7eb;
+  --shadow-soft: 0 20px 40px rgba(15, 23, 42, 0.16);
+}
+
+/* Basic reset + default font */
+* {
+  box-sizing: border-box;
   margin: 0;
-  padding-right: 40px;
+  padding: 0;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.settings-container {
-  background-color: white;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  max-width: 200px;
-  width: 100%;
+/* Body centers the main card on both pages */
+body {
+  min-height: 100vh;
+  background: #f3f4f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.25s ease;
 }
 
-.setting-group,
-.setting-item {
-  margin-bottom: 20px;
+/* ===================================================
+   SIMPLE ANIMATIONS
+   =================================================== */
+
+/* Fade up animation for main elements */
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-label {
-  display: block;
-  margin-bottom: 7px;
-  font-weight: bold;
+/* Slight scale/opacity animation for right panel */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-.help-button {
-  display: block;
-  width: 100%;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
+/* ===================================================
+   MAIN WRAPPER CARD
+   =================================================== */
+
+.planner-wrapper {
+  width: 920px;
+  max-width: 98vw;
+  background: #ffffff;
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  position: relative;
+  animation: slideUpFade 0.6s ease-out;
+}
+
+/* ===================================================
+   TOP NAVIGATION BAR
+   =================================================== */
+
+.planner-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 26px;
+  border-bottom: 1px solid #edf2f7;
+  background: #ffffff;
+}
+
+/* Left side - navigation tabs */
+.nav-left {
+  display: flex;
+  gap: 18px;
+  font-size: 14px;
+  color: var(--muted-text);
+}
+
+/* Each nav item (with icon + text) */
+.nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   cursor: pointer;
-  margin-bottom: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  transition: background 0.16s ease, color 0.16s ease, transform 0.16s ease;
+  position: relative;
 }
 
-.help-button:hover {
-  background-color: #0056b3;
+/* Icons inside nav */
+.nav-item .icon {
+  font-size: 15px;
 }
 
-.logout-button {
-  display: block;
-  width: 100%;
-  background-color: #dc3545;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
+/* Underline animation using pseudo-element */
+.nav-item::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: -3px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--blue-top), var(--blue-bottom));
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.16s ease;
 }
 
-.logout-button:hover {
-  background-color: #c82333;
+/* Active / hover states */
+.nav-item.active,
+.nav-item:hover {
+  background: rgba(26, 160, 232, 0.07);
+  color: #186faf;
+  transform: translateY(-1px);
 }
 
-.terms-link {
-  display: block;
-  margin-top: 10px;
-  color: #007bff;
-  text-decoration: underline;
-  text-align: center;
+.nav-item.active::after,
+.nav-item:hover::after {
+  transform: scaleX(1);
+}
+
+/* Right side: title + settings */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted-text);
   font-size: 14px;
 }
 
-.terms-link:hover {
-  color: #0056b3;
+.nav-title {
+  font-weight: 500;
 }
 
-.popup-container {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
+/* Settings gear + dropdown wrapper */
+.settings-wrapper {
+  position: relative;
+}
+
+/* Circular gear button */
+.settings-wheel {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #d1d5db;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  background: #ffffff;
+  transition: background 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
 }
 
-.popup-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 600px;
-  width: 80%;
+.settings-wheel:hover {
+  background: #f9fafb;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.15);
+  transform: translateY(-1px) rotate(8deg);
+}
+
+/* Dropdown menu under the gear */
+.settings-menu {
+  position: absolute;
+  right: 0;
+  top: 38px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
+  border: 1px solid #e5e7eb;
+  min-width: 165px;
+  padding: 6px 0;
+  z-index: 20;
+  animation: slideUpFade 0.25s ease-out;
+}
+
+/* Item inside settings dropdown */
+.settings-item {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  font-size: 13px;
+  color: #4b5563;
+  cursor: pointer;
   text-align: left;
 }
 
-#closeHelpButton,
-#closeTermsButton {
-  background-color: #f44336;
-  color: white;
-  padding: 10px 15px;
+.settings-item i {
+  width: 16px;
+}
+
+/* Hover state for menu items */
+.settings-item:hover:not(:disabled) {
+  background: rgba(243, 244, 246, 0.9);
+}
+
+.settings-item:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ===================================================
+   PAGE CONTENT SPLIT (LEFT + RIGHT)
+   =================================================== */
+
+.planner-content {
+  display: grid;
+  grid-template-columns: 1.2fr 1.3fr;
+  min-height: 420px;
+}
+
+/* LEFT SIDE */
+.left-pane {
+  padding: 40px 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+}
+
+/* RIGHT SIDE - blue gradient area */
+.right-pane {
+  position: relative;
+  overflow: hidden;
+background-image: url(bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #ffffff;
+ padding: 40px 40px 40px 80px;
+  animation: fadeInScale 0.6s ease-out;
+}
+
+/* Wave-shaped divider between white and blue halves */
+.right-pane::before {
+  content: "";
+  position: absolute;
+  left: -70px;
+  top: 0;
+  width: 140px;
+  height: 100%;
+  background: inherit;
+ 
+  border-top-left-radius: 80% 100%;
+  border-bottom-left-radius: 80% 100%;
+}
+
+/* Decorative gradient "hills" at the bottom of blue panel */
+.wave-bg {
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  right: 0;
+  height: 90px;
+  opacity: 0.3;
+  background:
+    radial-gradient(circle at 10% 0, rgba(255, 255, 255, 0.94) 0, transparent 55%),
+    radial-gradient(circle at 70% 0, rgba(255, 255, 255, 0.85) 0, transparent 55%);
+}
+
+/* ===================================================
+   LOGIN CARD (LEFT SIDE)
+   =================================================== */
+
+.login-card {
+  width: 100%;
+  max-width: 330px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid #edf2f7;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+  overflow: hidden;
+  animation: slideUpFade 0.5s ease-out;
+}
+
+/* Colored top area of login card */
+.login-header {
+  background: linear-gradient(135deg, var(--blue-top), var(--blue-bottom));
+  padding: 16px 20px 24px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.login-header-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+  background: rgba(255, 255, 255, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.login-header-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Inner form container */
+.login-body {
+  padding: 24px 22px 20px;
+}
+
+/* Generic form group styling (used on both pages) */
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: var(--muted-text);
+}
+
+/* Wrap for icon + input */
+.input-wrap {
+  position: relative;
+}
+
+/* Icon inside input fields */
+.input-wrap .input-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+/* Reusable input style */
+.login-input {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  padding: 9px 10px 9px 30px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.login-input::placeholder {
+  color: #b0b8c4;
+}
+
+/* Focus state with colored border */
+.login-input:focus {
+  border-color: var(--blue-top);
+  box-shadow: 0 0 0 1px rgba(26, 160, 232, 0.3);
+}
+
+/* Main pill-like button (login + register) */
+.login-btn {
+  margin-top: 6px;
+  width: 100%;
+  border-radius: 8px;
   border: none;
-  border-radius: 4px;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--blue-top), var(--blue-bottom));
   cursor: pointer;
+  transition: box-shadow 0.15s ease, transform 0.15s ease, filter 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.login-btn:hover {
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.25);
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+
+/* Text under login button */
+.login-footer {
   margin-top: 10px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted-text);
 }
 
-#closeHelpButton:hover,
-#closeTermsButton:hover {
-  background-color: #c0392b;
+.login-footer a {
+  color: #1a73e8;
+  text-decoration: none;
 }
 
-.dark-mode {
-  background-color: #121212;
-  color: #121212;
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+.signup-link {
+  margin-top: 4px;
+  font-size: 11px;
+}
+
+/* ===================================================
+   RIGHT PANEL TEXT STYLING
+   =================================================== */
+
+.sso-logo {
+  font-size: 22px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sso-logo-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.welcome-heading {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+
+.welcome-subtitle {
+  font-size: 13px;
+  max-width: 260px;
+  opacity: 0.9;
+  margin-bottom: 26px;
+}
+
+.info-list {
+  list-style: none;
+  font-size: 13px;
+  opacity: 0.9;
+  margin-bottom: 22px;
+}
+
+.info-list li {
+  margin-bottom: 6px;
+}
+
+/* Highlight pills on right pane */
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.pill-tag-link {
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.pill-tag-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* ===================================================
+   SIGNUP PAGE STYLES
+   =================================================== */
+
+/* Full-page center on signup */
+.signup-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #e9eef6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+/* Card holding signup form */
+.signup-card {
+  width: 360px;
+  max-width: 96vw;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px 26px 26px;
+  border: 1px solid #e0e6ed;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+  animation: slideUpFade 0.5s ease-out;
+}
+
+/* Header row: title + dark-mode button */
+.signup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.signup-header h2 {
+  font-size: 20px;
+}
+
+/* Small circular dark-mode toggle on signup card */
+.dark-toggle-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  cursor: pointer;
+  transition: background 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+  font-size: 14px;
+}
+
+.dark-toggle-btn:hover {
+  background: #f9fafb;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.15);
+  transform: translateY(-1px);
+}
+
+.signup-back {
+  margin-top: 12px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.signup-back a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.signup-back a:hover {
+  text-decoration: underline;
+}
+
+/* ===================================================
+   DARK MODE STYLES
+   (applied when <body> has class "dark-mode")
+   =================================================== */
+
+body.dark-mode {
+  background: #020617;
+}
+
+/* Main wrapper card becomes dark */
+body.dark-mode .planner-wrapper {
+  background: #020617;
+  border-color: #1f2937;
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.9);
+}
+
+/* Top nav in dark */
+body.dark-mode .planner-nav {
+  background: #020617;
+  border-bottom-color: #1f2937;
+}
+
+body.dark-mode .nav-title {
+  color: #e5e7eb;
+}
+
+body.dark-mode .nav-item {
+  color: #9ca3af;
+}
+
+body.dark-mode .nav-item.active,
+body.dark-mode .nav-item:hover {
+  background: rgba(59, 130, 246, 0.22);
+  color: #e5e7eb;
+}
+
+/* Settings appearance in dark mode */
+body.dark-mode .settings-wheel {
+  background: #020617;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+
+body.dark-mode .settings-wheel:hover {
+  background: #111827;
+}
+
+body.dark-mode .settings-menu {
+  background: #020617;
+  border-color: #1f2937;
+}
+
+body.dark-mode .settings-item {
+  color: #e5e7eb;
+}
+
+body.dark-mode .settings-item:hover:not(:disabled) {
+  background: #111827;
+}
+
+/* Left pane & login card in dark mode */
+body.dark-mode .left-pane {
+  background: #020617;
+}
+
+body.dark-mode .login-card {
+  background: #020617;
+  border-color: #1f2937;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.9);
+}
+
+body.dark-mode .form-group label {
+  color: #9ca3af;
+}
+
+body.dark-mode .login-input {
+  background: #020617;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+
+body.dark-mode .login-input::placeholder {
+  color: #6b7280;
+}
+
+/* Right pane gradient becomes darker */
+body.dark-mode .right-pane {
+  background: linear-gradient(135deg, #0f172a, #020617);
+    position: relative;
+  overflow: hidden;
+background-image: url(bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+ 
+  
+   
+}
+
+body.dark-mode .right-pane::before {
+  background: inherit;
+}
+
+/* Pill tags lighter in dark */
+body.dark-mode .pill-tag {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+/* Signup page dark mode */
+body.dark-mode .signup-container {
+  background: #020617;
+}
+
+body.dark-mode .signup-card {
+  background: #020617;
+  border-color: #1f2937;
+  color: #e5e7eb;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+}
+
+body.dark-mode .signup-header h2 {
+  color: #e5e7eb;
+}
+
+body.dark-mode .dark-toggle-btn {
+  background: #020617;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+
+body.dark-mode .dark-toggle-btn:hover {
+  background: #111827;
+}
+
+body.dark-mode .signup-back a {
+  color: #60a5fa;
+}
+
+/* ===================================================
+   RESPONSIVE DESIGN (MOBILE FRIENDLY)
+   =================================================== */
+
+/* Medium screens: stack panels vertically */
+@media (max-width: 900px) {
+  .planner-content {
+    grid-template-columns: 1fr;
+  }
+
+  .right-pane {
+    padding: 30px 26px;
+  }
+
+  .right-pane::before {
+    display: none; /* remove wave shape on narrow screens */
+  }
+
+  .planner-nav {
+    padding-inline: 18px;
+  }
+}
+
+/* Small screens: adjust paddings/font sizes */
+@media (max-width: 640px) {
+  .planner-wrapper {
+    margin: 10px;
+  }
+
+  .left-pane {
+    padding: 26px 18px;
+  }
+
+  .nav-left {
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .nav-item span {
+    display: none; /* show only icons on very small screens */
+  }
+
+  .nav-item .icon {
+    font-size: 16px;
+  }
+
+  .nav-title {
+    display: none; /* hide text "Planner Demo" on very small screens */
+  }
+
+  .right-pane {
+    padding: 24px 18px 28px;
+  }
+
+  .welcome-heading {
+    font-size: 18px;
+  }
+
+  .welcome-subtitle {
+    font-size: 12px;
+  }
+
+  .signup-card {
+    padding: 20px 18px;
+  }
 }

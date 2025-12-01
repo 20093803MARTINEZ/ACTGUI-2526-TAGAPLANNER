@@ -1,90 +1,202 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" ng-app="plannerApp">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <title>Planner - Home</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for icons (calendar, notes, tasks, settings, etc.) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="settings-container">
-    <h1>Settings</h1>
 
-    <div class="setting-group">
-      <label for="darkMode">Dark Mode:</label>
-      <input type="checkbox" id="darkMode" name="darkMode">
+<!-- ng-class adds 'dark-mode' class on <body> when vm.darkMode = true -->
+
+<body ng-controller="HomeCtrl as vm" ng-class="{'dark-mode': vm.darkMode}">
+
+    <!-- Main white card that holds everything -->
+    <div class="planner-wrapper">
+
+        <!-- Top navigation bar -->
+        <div class="planner-nav">
+            <div class="nav-left">
+                <!-- Each nav item has icon + label -->
+                <div class="nav-item">
+                    <i class="fa-regular fa-calendar icon"></i>
+                    <span>Calendar</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fa-regular fa-note-sticky icon"></i>
+                    <span>Notes</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fa-solid fa-list-check icon"></i>
+                    <span>Task</span>
+                </div>
+            </div>
+
+            <div class="nav-right">
+                <span class="nav-title">Settings</span>
+
+                <!-- Settings wrapper: gear + dropdown menu -->
+                <div class="settings-wrapper">
+                    <!-- Gear icon - opens/closes settings menu -->
+                    <button type="button" class="settings-wheel" title="Settings" ng-click="vm.toggleSettingsMenu()">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+
+                    <!-- Settings dropdown menu -->
+                    <div class="settings-menu" ng-show="vm.showSettings">
+                        <button type="button" class="settings-item" ng-click="vm.toggleDarkMode()">
+                            <i class="fa-regular" ng-class="{'fa-moon': !vm.darkMode, 'fa-sun': vm.darkMode}"></i>
+                            <span ng-bind="vm.darkMode ? 'Light mode' : 'Dark mode'"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content area: left (login) + right (welcome text) -->
+        <div class="planner-content">
+
+            <!-- LEFT: login form -->
+            <div class="left-pane">
+                <div class="login-card">
+
+                    <!-- Colored header of the login card -->
+                    <div class="login-header">
+                        <div class="login-header-logo">
+                            <!--Logo Here-->
+                            <!--    <i class="fa-solid fa-q"></i> -->
+                        </div>
+                        <div class="login-header-title">Website Planner</div>
+                    </div>
+
+                    <!-- Actual login form -->
+                    <div class="login-body">
+                        <form novalidate>
+                            <!-- Username -->
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <div class="input-wrap">
+                                    <span class="input-icon">
+                                        <i class="fa-regular fa-user"></i>
+                                    </span>
+                                    <input id="username" class="login-input" type="text" placeholder="Enter user name"
+                                        ng-model="vm.login.username">
+                                </div>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <div class="input-wrap">
+                                    <span class="input-icon">
+                                        <i class="fa-solid fa-key"></i>
+                                    </span>
+                                    <input id="password" class="login-input" type="password"
+                                        placeholder="Enter password" ng-model="vm.login.password">
+                                </div>
+                            </div>
+
+                            <!-- Demo login button -->
+                            <button type="button" class="login-btn" ng-click="vm.loginDemo()">
+                                Login
+                            </button>
+
+                            <!-- Forgot + sign up links -->
+                            <div class="login-footer">
+                                <div class="signup-link">
+                                    New to Planner?
+                                    <!-- Navigate to signup page -->
+                                    <a href="" ng-click="vm.goToSignup()">Create account</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- RIGHT: welcome text + highlight pills -->
+            <div class="right-pane">
+                <div class="sso-logo">
+                    <!--Logo Here-->
+                    <!--    <i class="fa-solid fa-q"></i> -->
+                    <span class="sso-logo-text">Website Planner</span>
+                </div>
+
+                <h2 class="welcome-heading">WELCOME BACK!</h2>
+                <p class="welcome-subtitle">
+                    Enter your ID and password to continue to your planner dashboard.
+                </p>
+
+                <ul class="info-list">
+                    <li>• View your calendar, tasks and notes in one place.</li>
+                    <li>• Fast, secure and simple login experience.</li>
+                    <li>• This is a demo — no data will be saved.</li>
+                </ul>
+
+                <!-- Decorative gradient hills at the bottom -->
+                <div class="wave-bg"></div>
+            </div>
+
+        </div>
     </div>
 
-    <div class="setting-item">
-      <label for="font-size-slider">Font Size:</label>
-      <input type="range" id="font-size-slider" min="12" max="24" value="16">
-    </div>
+    <!-- AngularJS controller logic -->
+    <script>
+        angular.module('plannerApp', [])
+            .controller('HomeCtrl', ['$window', function ($window) {
+                var vm = this;
 
-    <button id="openHelpButton" class="help-button">Help</button>
-    <button id="logout-button" class="logout-button">Logout</button>
+                // Track if dark mode is active
+                vm.darkMode = false;
 
-    <a href="#" id="termsLink" class="terms-link">Terms and Conditions</a>
-  </div>
+                // Track if settings dropdown menu is visible
+                vm.showSettings = false;
 
-  <div id="helpPopup" class="popup-container">
-    <div class="popup-content">
-      <h2>Help</h2>
-      <p>Hi, We're here to help.</p>
-      <ul>
-        <li>What is TagaPlanner? </li>
-        <ul>The app offer its key features (task management, scheduling, reminders, and notes)
-          which helps user with their day-to-day activities.</ul>
-        <li>Select “Dark Mode” to toggle dark theme.</li>
-        <li>Use “Font Size” to adjust text size.</li>
-        <li>Select “Log Out” to sign out from the account.</li>
-        <li>Contact Us: </li>
-          <ul>Email: showmyrice@tagaplanner.com</ul>
-          <ul>Phone: +63-909-080-4051</ul>
-      </ul>
-      <button id="closeHelpButton">Close</button>
-    </div>
-  </div>
+                // Simple demo login handler (no real backend)
+                vm.loginDemo = function () {
+                    alert(
+                        "Demo login only.\n\nUsername: " + (vm.login.username || "(empty)") +
+                        "\nPassword: " + (vm.login.password || "(empty)")
+                    );
+                };
 
-  <div id="termsModal" class="popup-container">
-    <div class="popup-content">
-      <h2>Terms and Conditions</h2>
-      <p>Here are the Terms and Conditions for using this application:</p>
-      <ul>
-        <li><strong>Introduction</strong> Welcome to TagaPlanner! A digital planning tool to
-        help you manage and organize your daily tasks. Please read these Terms and Conditions carefully
-        before using the TagaPlanner operated by a group of students from ACT-MM batch 2025. By accessing or using
-        the App, you agree to be bound by these terms.</li>
+                // Navigate to signup.html
+                vm.goToSignup = function () {
+                    $window.location.href = "signup.html";
+                };
 
-        <li><strong>Acceptance of Terms:</strong> By downloading, installing, our using the TagaPlanner,
-        you agree to comply with these terms. If you do not agree with any part of these Terms, you are not authorized
-        to use the App. </li>
+                // Open/close settings dropdown
+                vm.toggleSettingsMenu = function () {
+                    vm.showSettings = !vm.showSettings;
+                };
 
-        <li><strong>Privacy Policy:</strong> Your data is important to us. Or Privacy Policy explains how we collect, 
-          use, and protect your personal information. By using the App, you consent to our collection and use of data 
-          as outlined in the Privacy Policy. </li>
+                // Toggle dark mode on/off
+                vm.toggleDarkMode = function () {
+                    vm.darkMode = !vm.darkMode;
+                };
 
-          <ul>
-            <li>Data Storage: The App may store data locally or on cloud servers, and you are responsible for backing 
-              up your own data.</li>
-          </ul>
-
-        <li><strong>Usage:</strong> You must be at least 13 years old to use the App. You are respponsible for all 
-          activities under your account. You agree not to use the App for any illegal or unauthorized purpose. 
-          You must comply with all applicable laws and regulations when using the App.</li>
-        
-          <li><strong>Intellectual Property:</strong> The App, including its content, features, and functionality, is owned by
-          ACT-MM students batch 2025. </li>
-        
-          <li><strong>User Content:</strong> You retain ownership of any content you create or upload to the App.
-        By uploading content, you grant ACT-MM students batch 2025 a non-exclusive, worldwide, royalty-free license to use, store, 
-        and display such content within the App. </li>
-        
-        <li>All rights reserved to Show My Rice 2025</li>
-
-      <button id="closeTermsButton">Close</button>
-    </div>
-  </div>
+                // Default login model
+                vm.login = {
+                    username: "",
+                    password: ""
+                };
+            }]);
+    </script>
 
 </body>
+
 </html>

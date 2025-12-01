@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" ng-app="plannerApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Planner - Sign Up</title>
+
+    <!-- Same font + icons as main page -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Shared styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+</head>
+
+<!-- Reuse dark mode toggle on signup page as well -->
+
+<body ng-controller="SignupCtrl as vm" ng-class="{'dark-mode': vm.darkMode}">
+
+    <div class="signup-container">
+        <div class="signup-card">
+
+            <!-- Header with dark-mode toggle button -->
+            <div class="signup-header">
+                <h2>Create Your Account</h2>
+                <!-- Small circular button to toggle dark mode -->
+                <button type="button" class="dark-toggle-btn" ng-click="vm.toggleDarkMode()">
+                    <i class="fa-regular" ng-class="{'fa-moon': !vm.darkMode, 'fa-sun': vm.darkMode}"></i>
+                </button>
+            </div>
+
+            <!-- Simple registration form (demo only) -->
+            <form novalidate ng-submit="vm.register()">
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="login-input" ng-model="vm.user.name" placeholder="Your full name">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="login-input" ng-model="vm.user.email" placeholder="you@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="login-input" ng-model="vm.user.username" placeholder="Choose a username">
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="login-input" ng-model="vm.user.password"
+                        placeholder="Create a password">
+                </div>
+
+                <button class="login-btn" type="submit">
+                    <i class="fa-regular fa-circle-check"></i>
+                    <span>Register</span>
+                </button>
+
+                <p class="signup-back">
+                    Already have an account?
+                    <a href="index.html">Back to login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        angular.module('plannerApp', [])
+            .controller('SignupCtrl', [function () {
+                var vm = this;
+
+                // Dark mode flag
+                vm.darkMode = false;
+
+                // Data model for user fields
+                vm.user = {
+                    name: "",
+                    email: "",
+                    username: "",
+                    password: ""
+                };
+
+                // Show data in alert (demo only, no database)
+                vm.register = function () {
+                    alert(
+                        "Demo Only — No database.\n\n" +
+                        "Name: " + (vm.user.name || "(empty)") + "\n" +
+                        "Email: " + (vm.user.email || "(empty)") + "\n" +
+                        "Username: " + (vm.user.username || "(empty)") + "\n" +
+                        "Password: " + (vm.user.password || "(empty)")
+                    );
+                };
+
+                // Toggle dark mode for this page
+                vm.toggleDarkMode = function () {
+                    vm.darkMode = !vm.darkMode;
+                };
+            }]);
+    </script>
+
+</body>
+
+</html>
