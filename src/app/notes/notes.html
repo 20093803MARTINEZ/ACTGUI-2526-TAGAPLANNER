@@ -1,0 +1,72 @@
+<div class="container">
+  <h1 class="title">My Notes</h1>
+
+  <div class="layout">
+    <!-- LEFT: notes panel -->
+    <aside class="notes-panel">
+      <div class="notes-box">
+        <div class="note" *ngFor="let n of notes; let i = index"
+             [ngStyle]="{
+               'font-size': n.fontSize,
+               'color': n.fontColor,
+               'font-weight': n.bold ? 'bold' : 'normal',
+               'font-style': n.italic ? 'italic' : 'normal',
+               'text-decoration': n.underline ? 'underline' : 'none'
+             }">
+          <p class="note-text">{{ n.text }}</p>
+
+          <div class="note-actions">
+            <button class="edit" (click)="editNote(i)">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <button class="delete" (click)="deleteNote(i)">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="empty" *ngIf="notes.length === 0">
+          Add Notes...
+        </div>
+      </div>
+
+      <div class="add-area">
+        <button class="primary" (click)="addOrUpdateNote()">
+          {{ editingIndex === null ? 'Add Note' : 'Update Note' }}
+        </button>
+      </div>
+    </aside>
+
+    <!-- RIGHT: editor panel -->
+    <section class="editor-panel">
+      <div class="toolbar">
+        <label>Font Size:</label>
+        <select [(ngModel)]="fontSize">
+          <option value="12px">12</option>
+          <option value="14px">14</option>
+          <option value="16px">16</option>
+          <option value="20px">20</option>
+          <option value="24px">24</option>
+          <option value="30px">30</option>
+        </select>
+
+        <label>Color:</label>
+        <input type="color" [(ngModel)]="fontColor" />
+
+        <button (click)="isBold = !isBold" [class.active]="isBold">B</button>
+        <button (click)="isItalic = !isItalic" [class.active]="isItalic">I</button>
+        <button (click)="isUnderline = !isUnderline" [class.active]="isUnderline">U</button>
+      </div>
+
+      <textarea [(ngModel)]="noteText"
+                placeholder="Note your priorities..."
+                [ngStyle]="{
+                  'font-size': fontSize,
+                  'color': fontColor,
+                  'font-weight': isBold ? 'bold' : 'normal',
+                  'font-style': isItalic ? 'italic' : 'normal',
+                  'text-decoration': isUnderline ? 'underline' : 'none'
+                }"></textarea>
+    </section>
+  </div>
+</div>
