@@ -116,3 +116,35 @@ label {
   background-color: #121212;
   color: #121212;
 }
+
+.font-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.font-btn {
+  margin: 0 5px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  padding: 5px 10px;
+  transition: background-color 0.2s ease;
+}
+
+.font-btn.small { font-size: 12px; }
+.font-btn.medium { font-size: 16px; }
+.font-btn.large { font-size: 20px; }
+
+/* Hover effect */
+.font-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* Active (selected) state */
+.font-btn.active {
+  background-color: #d0d0d0;
+  border-color: #999;
+}
+
+

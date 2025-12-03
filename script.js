@@ -19,10 +19,23 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.toggle('dark-mode', isDark);
   });
 
-  fontSizeSlider.addEventListener('input', () => {
-    document.documentElement.style.setProperty('--base-font-size', `${fontSizeSlider.value}px`);
-  });
-
+  function setFontSize(size: 'small' | 'medium' | 'large'): void {
+    let fontSize: string;
+  
+    if (size === 'small') fontSize = '12px';
+    else if (size === 'medium') fontSize = '16px';
+    else fontSize = '20px';
+  
+    const settingsContainer = document.querySelector('.settings-container') as HTMLElement;
+    if (settingsContainer) {
+      settingsContainer.style.fontSize = fontSize;
+    }
+      document.querySelectorAll('.font-btn').forEach(btn => btn.classList.remove('active'));
+  
+    const activeBtn = document.querySelector(`.font-btn.${size}`);
+    if (activeBtn) activeBtn.classList.add('active');
+  }
+  
   openHelpButton.addEventListener('click', () => {
     helpPopup.style.display = 'flex';
   });

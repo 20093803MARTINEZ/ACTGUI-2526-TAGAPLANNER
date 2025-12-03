@@ -8,28 +8,44 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+
   <div class="settings-container">
-    <h1>Settings</h1>
-
+    <span style="display:flex; align-items:center;">
+      <img src="../Images/settings.png" alt="Settings" style="width:25px; height:auto; margin-right:5px;">
+      <h1>Settings</h1>
+    </span>
+        
     <div class="setting-group">
-      <label for="darkMode">Dark Mode:</label>
-      <input type="checkbox" id="darkMode" name="darkMode">
+      <span style="display:flex; align-items:center;">
+        <img src="../Images/darkmode.png" alt="darkmode" style="width:20px; height:auto; margin-right:5px; transform: translateY(-3px);">
+        <label for="darkMode">Dark Mode:</label>
+        <input type="checkbox" id="darkMode" name="darkMode" style="transform: translateY(-3px);">
+      </span>
     </div>
 
-    <div class="setting-item">
-      <label for="font-size-slider">Font Size:</label>
-      <input type="range" id="font-size-slider" min="12" max="24" value="16">
-    </div>
+    <div class="setting-item font-size-selector">
+        <label>Font Size:</label>
+        <div class="font-buttons">
+          <button onclick="setFontSize('small')" class="font-btn small">Aa</button>
+          <button onclick="setFontSize('medium')" class="font-btn medium">Aa</button>
+          <button onclick="setFontSize('large')" class="font-btn large">Aa</button>
+        </div>
+      </div>
+      
+      
 
     <button id="openHelpButton" class="help-button">Help</button>
     <button id="logout-button" class="logout-button">Logout</button>
-
     <a href="#" id="termsLink" class="terms-link">Terms and Conditions</a>
   </div>
 
   <div id="helpPopup" class="popup-container">
     <div class="popup-content">
-      <h2>Help</h2>
+      <span style="display:flex; align-items:center;">
+        <img src="../Images/help.png" alt="Help" style="width:25px; height:auto; margin-right:5px;">
+        <h2>Help</h2>          
+      </span>
+          
       <p>Hi, We're here to help.</p>
       <ul>
         <li>What is TagaPlanner? </li>
@@ -60,7 +76,7 @@
         you agree to comply with these terms. If you do not agree with any part of these Terms, you are not authorized
         to use the App. </li>
 
-        <li><strong>Privacy Policy:</strong> Your data is important to us. Or Privacy Policy explains how we collect, 
+        <li><strong>Privacy Policy:</strong> Your data is important to us. Our Privacy Policy explains how we collect, 
           use, and protect your personal information. By using the App, you consent to our collection and use of data 
           as outlined in the Privacy Policy. </li>
 
@@ -73,10 +89,10 @@
           activities under your account. You agree not to use the App for any illegal or unauthorized purpose. 
           You must comply with all applicable laws and regulations when using the App.</li>
         
-          <li><strong>Intellectual Property:</strong> The App, including its content, features, and functionality, is owned by
-          ACT-MM students batch 2025. </li>
+        <li><strong>Intellectual Property:</strong> The App, including its content, features, and functionality, is owned by
+        ACT-MM students batch 2025. </li>
         
-          <li><strong>User Content:</strong> You retain ownership of any content you create or upload to the App.
+        <li><strong>User Content:</strong> You retain ownership of any content you create or upload to the App.
         By uploading content, you grant ACT-MM students batch 2025 a non-exclusive, worldwide, royalty-free license to use, store, 
         and display such content within the App. </li>
         
