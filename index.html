@@ -8,39 +8,71 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+
   <div class="settings-container">
-    <h1>Settings</h1>
-
+    <span style="display:flex; align-items:center;">
+      <img src="../Images/settings.png" alt="Settings" style="width:25px; height:auto; margin-right:5px;">
+      <h1>Settings</h1>
+    </span>
+        
     <div class="setting-group">
-      <label for="darkMode">Dark Mode:</label>
-      <input type="checkbox" id="darkMode" name="darkMode">
+      <span style="display:flex; align-items:center;">
+        <img src="../Images/darkmode.png" alt="darkmode" style="width:20px; height:auto; margin-right:5px; transform: translateY(-3px);">
+        <label for="darkMode">Dark Mode:</label>
+        <input type="checkbox" id="darkMode" name="darkMode" style="transform: translateY(-3px);">
+      </span>
     </div>
 
-    <div class="setting-item">
-      <label for="font-size-slider">Font Size:</label>
-      <input type="range" id="font-size-slider" min="12" max="24" value="16">
-    </div>
-
+    <div class="setting-item font-size-selector">
+        <label>Font Size:</label>
+        <div class="font-buttons">
+          <button class="font-btn small">Aa</button>
+          <button class="font-btn medium">Aa</button>
+          <button class="font-btn large">Aa</button>
+        </div>
+      </div>
+      
     <button id="openHelpButton" class="help-button">Help</button>
     <button id="logout-button" class="logout-button">Logout</button>
-
     <a href="#" id="termsLink" class="terms-link">Terms and Conditions</a>
   </div>
 
   <div id="helpPopup" class="popup-container">
     <div class="popup-content">
-      <h2>Help</h2>
-      <p>Hi, We're here to help.</p>
+      <span style="display:flex; align-items:center;">
+        <img src="../Images/help.png" alt="Help" style="width:25px; height:auto; margin-right:5px;">
+        <h2>Help</h2>          
+      </span>
+          
+      <p><strong>Welcome to TagaPlanner! </strong></p>
       <ul>
-        <li>What is TagaPlanner? </li>
-        <ul>The app offer its key features (task management, scheduling, reminders, and notes)
-          which helps user with their day-to-day activities.</ul>
-        <li>Select “Dark Mode” to toggle dark theme.</li>
-        <li>Use “Font Size” to adjust text size.</li>
-        <li>Select “Log Out” to sign out from the account.</li>
-        <li>Contact Us: </li>
+       <p> TagaPlanner is a digital planner designed to help you manage tasks, schedules, reminders, 
+          and notes efficiently. Whether you are a student, professional, or just want to stay organized, 
+          TagaPlanner makes daily planning simple and convenient. </p>
+
+        <li><strong>Dark Mode: </strong></li>
+        <ul>Toggle Dark Mode to switch between light and dark themes.</ul>
+        <li><strong>Font Size: </strong></li>
+        <ul>Adjust the font size using the Aa buttons:</ul>
+        <ul><li>Small</ul></li>
+        <ul><li>Medium</ul></li>
+        <ul><li>Large</ul></li>
+        <li><strong>Manage Tasks: </strong></li>
+        <ul>Create, edit, and delete tasks easily.</ul>
+        <ul>Mark tasks as complete to track progress.</ul>
+        <li><strong>Reminders: </strong></li>
+        <ul>Notifications help you stay on top of your schedule.</ul>
+        <li><strong>Notes: </strong></li>
+        <ul>Add, edit, and save notes for reference.</ul>
+        <ul>Keep your notes organized by topic or date.</ul>
+        <li><strong>Logout: </strong></li>
+        <ul>Click “Logout” to safely sign out of your account.</ul>
+        <li><strong>Contact Us: </strong></li>
           <ul>Email: showmyrice@tagaplanner.com</ul>
           <ul>Phone: +63-909-080-4051</ul>
+        <li><strong>Tips: </strong></li>
+        <ul>Check your tasks daily to stay organized.</ul>
+        <ul>Keep your notes updated for quick reference.</ul>
       </ul>
       <button id="closeHelpButton">Close</button>
     </div>
@@ -51,37 +83,45 @@
       <h2>Terms and Conditions</h2>
       <p>Here are the Terms and Conditions for using this application:</p>
       <ul>
-        <li><strong>Introduction</strong> Welcome to TagaPlanner! A digital planning tool to
+        <li><strong>Introduction:</strong> </li>
+          <ul>Welcome to TagaPlanner! A digital planning tool to
         help you manage and organize your daily tasks. Please read these Terms and Conditions carefully
         before using the TagaPlanner operated by a group of students from ACT-MM batch 2025. By accessing or using
-        the App, you agree to be bound by these terms.</li>
+        the App, you agree to be bound by these terms.</ul>
 
-        <li><strong>Acceptance of Terms:</strong> By downloading, installing, our using the TagaPlanner,
+        <li><strong>Acceptance of Terms:</strong></li>
+          <ul>By downloading, installing, our using the TagaPlanner,
         you agree to comply with these terms. If you do not agree with any part of these Terms, you are not authorized
-        to use the App. </li>
+        to use the App. </ul>
 
-        <li><strong>Privacy Policy:</strong> Your data is important to us. Or Privacy Policy explains how we collect, 
+        <li><strong>Privacy Policy:</strong> </li>
+          <ul>Your data is important to us. Our Privacy Policy explains how we collect, 
           use, and protect your personal information. By using the App, you consent to our collection and use of data 
-          as outlined in the Privacy Policy. </li>
+          as outlined in the Privacy Policy. </ul>
 
-          <ul>
-            <li>Data Storage: The App may store data locally or on cloud servers, and you are responsible for backing 
-              up your own data.</li>
-          </ul>
+        <li><strong>Data Storage: </strong></li>
+        <ul>The App may store data locally or on cloud servers, and you are responsible for backing 
+              up your own data.</ul>
 
-        <li><strong>Usage:</strong> You must be at least 13 years old to use the App. You are respponsible for all 
+        <li><strong>Usage:</strong> </li>
+        <ul>You must be at least 13 years old to use the App. You are respponsible for all 
           activities under your account. You agree not to use the App for any illegal or unauthorized purpose. 
-          You must comply with all applicable laws and regulations when using the App.</li>
+          You must comply with all applicable laws and regulations when using the App.</ul>
         
-          <li><strong>Intellectual Property:</strong> The App, including its content, features, and functionality, is owned by
-          ACT-MM students batch 2025. </li>
+        <li><strong>Intellectual Property:</strong> </li>
+        <ul>The App, including its content, features, and functionality, is owned by
+        ACT-MM students batch 2025. </ul>
         
-          <li><strong>User Content:</strong> You retain ownership of any content you create or upload to the App.
-        By uploading content, you grant ACT-MM students batch 2025 a non-exclusive, worldwide, royalty-free license to use, store, 
-        and display such content within the App. </li>
+        <li><strong>User Content:</strong> </li>
+        <ul>You retain ownership of any content you create or upload to the App.
+        By uploading content, you grant ACT-MM students batch 2025 a non-exclusive, worldwide, royalty-free 
+        license to use, store, and display such content within the App. </ul>
         
-        <li>All rights reserved to Show My Rice 2025</li>
+        <li><strong>Acknowledgement:</strong> </li>
+        <ul>By using TagaPlanner, you confirm that you have read, understood, and agreed to these Terms and Conditions. </ul>
 
+        <li>All rights reserved to Show My Rice 2025</li>
+      </ul>
       <button id="closeTermsButton">Close</button>
     </div>
   </div>
