@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calendar</title>
+  <link rel="stylesheet" href="ACTGUI-2526-TAGAPLANNER-main/style.css" />
+</head>
+<body class="calendar-page">
+  <div class="layout">
+    <aside class="sidebar">
+      <nav class="nav">
+        <a href="#" data-view="year" class="active">Yearly</a>
+        <a href="#" data-view="month">Monthly</a>
+        <a href="#" data-view="week">Weekly</a>
+      </nav>
+    </aside>
+    <main class="content">
+      <div class="header">
+        <div id="title"></div>
+        <div class="header-controls" id="headerControls"></div>
+      </div>
+      <section id="year" class="section active">
+        <div class="year-grid" id="yearGrid"></div>
+      </section>
+      <section id="month" class="section">
+        <div class="month-box">
+          <div class="weekday-line" id="monthWeeknames"></div>
+          <div class="calendar-grid" id="monthGrid"></div>
+        </div>
+      </section>
+      <section id="week" class="section">
+        <div class="weekly-board" id="weekBoard"></div>
+      </section>
+    </main>
+  </div>
+  <script src="ACTGUI-2526-TAGAPLANNER-main/script.js" defer></script>
+</body>
+</html>
