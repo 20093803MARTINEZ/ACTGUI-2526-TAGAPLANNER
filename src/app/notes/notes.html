@@ -2,8 +2,8 @@
   <h1 class="title">My Notes</h1>
 
   <div class="layout">
-    <!-- LEFT: notes panel -->
     <aside class="notes-panel">
+      <!-- Box that contains saved notes -->
       <div class="notes-box">
         <div class="note" *ngFor="let n of notes; let i = index"
              [ngStyle]="{
@@ -30,6 +30,7 @@
         </div>
       </div>
 
+      <!-- Add / Update button (moved below notes-box) -->
       <div class="add-area">
         <button class="primary" (click)="addOrUpdateNote()">
           {{ editingIndex === null ? 'Add Note' : 'Update Note' }}
@@ -37,7 +38,6 @@
       </div>
     </aside>
 
-    <!-- RIGHT: editor panel -->
     <section class="editor-panel">
       <div class="toolbar">
         <label>Font Size:</label>
